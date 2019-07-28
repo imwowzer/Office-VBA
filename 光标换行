@@ -1,0 +1,20 @@
+Sub 光标换行()
+'
+' 光标换行 宏
+' 光标从当前位置移到下一行行首，若当前为最后一行则新建一行
+'
+Dim TotalLineNumber, CurrentLineNumber As Integer
+   TotalLineNumber = ActiveDocument.BuiltInDocumentProperties(wdPropertyLines).Value
+   CurrentLineNumber = Selection.Information(wdFirstCharacterLineNumber)
+   
+   If (CurrentLineNumber = TotalLineNumber) Then       '当前行若为当前页的最后一行，则新建一行
+     Selection.EndKey Unit:=wdLine
+     Selection.TypeParagraph
+   Else
+     Selection.MoveDown Unit:=wdLine, Count:=1
+     Selection.HomeKey Unit:=wdLine                     '移到下行行首
+     'Selection.HomeKey Unit:=wdLine, Extend:=wdExtend   '移到下行并选中行首内容
+   End If
+   
+     
+End Sub
